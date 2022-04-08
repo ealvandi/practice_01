@@ -177,6 +177,65 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
 
 
 
+    // show data from localstorage in a datagrid frame
+    function showDataGrid() {
+        
+        var data = loadData();
+        var row = '';
+        document.getElementById('dataGrid').innerHTML = '';
+        var i = 1;
+
+        // add everyone records in row
+        data.forEach(function (key, index, arr) {
+
+            row = row + '<div class="row my-2" style="">';
+            row = row + '<div class="col">' + i + '</div>';
+            row = row + '<div class="col">' + addComma(arr[index].amount) + ' تومان '+  '</div>';
+            row = row + '<div class="col">' + arr[index].date + '</div>';
+            row = row + '<div class="col">' + arr[index].type + '</div>';
+            row = row + '<div class="col">';
+
+            row = row + '<button type="button" class="btn btn-primary btn-sm btn-show btn-show" data-bs-toggle="modal" data-bs-target="#confirmModal"'
+                + ' RecID="' + arr[index].id + '" caption ="' + arr[index].describe + '" amount ="' + arr[index].amount + '" date ="' + arr[index].date + '">نمایش</button>';
+
+            row = row + '<button type="button" class="btn btn-delete btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal"'
+                + ' RecID="' + arr[index].id + '" caption ="' + arr[index].describe + '" amount ="' + arr[index].amount + '" date ="' + arr[index].date + '"> حذف </button>' + '</div>';
+            row = row + ' </div>';
+            i++;
+        });
+        document.getElementById('dataGrid').innerHTML = row;
+
+
+        // define click event for all off button that have btn-show class (show buttons) to open bootstrap modal
+        let btnShow = document.querySelectorAll(".btn-show");
+        for (let i = 0; i < btnShow.length; i++) {
+            btnShow[i].addEventListener("click", function () {
+                document.getElementById('modal-body').innerHTML =  btnShow[i].getAttribute("caption") + ' -  ' + btnShow[i].getAttribute("amount") + '  تومان   ' + ' -  ' + ' به تاریخ: ' + btnShow[i].getAttribute("date");;
+                document.getElementById('modal-body').setAttribute("RecID", btnShow[i].getAttribute("RecID"));
+                document.getElementById('confirm').style.display = 'none';
+                document.getElementById('cancel').innerHTML = 'برگشت';
+                document.getElementById('modalLabel').style.display = 'none';
+            });
+        }
+
+        // define click event for all off button that have btn-delete class (delete buttons) to open bootstrap modal
+        let cbox = document.querySelectorAll(".btn-delete");
+        for (let i = 0; i < cbox.length; i++) {
+            cbox[i].addEventListener("click", function () {
+                document.getElementById('modal-body').innerHTML =  cbox[i].getAttribute("caption") + ' -  ' + cbox[i].getAttribute("amount") + '  تومان   ' + ' -  ' + ' به تاریخ: ' + cbox[i].getAttribute("date");
+                document.getElementById('modal-body').setAttribute("RecID", cbox[i].getAttribute("RecID"));
+                document.getElementById('confirm').style.display = 'block';
+                document.getElementById('cancel').innerHTML = 'لغو';
+                document.getElementById('modalLabel').style.display = 'block';
+
+            });
+        }
+
+        drawChart(); // draw chart after show datagrid
+    }
+
+ 
+
 
 
 
