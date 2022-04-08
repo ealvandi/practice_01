@@ -329,6 +329,50 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
 
  
 
+    // draw mix lineer chart. reference: chart.js
+    function lineChartSetup(lables,incomeData , costData) {
+        document.getElementById("chartContainer").removeChild(document.getElementById("chartContainer").firstElementChild);
+        
+        document.getElementById('chartContainer').innerHTML = '<canvas id="myChart"  style="width: 100%;" ></canvas>'; 
+        var heightRatio = 1.0;
+        document.getElementById('myChart').height  = document.getElementById('myChart').width  * heightRatio;
+   
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'درآمد',
+                    data: incomeData,
+                    // this dataset is drawn below
+                    borderColor: ['rgba(0,128,0)'],
+
+                    order: 2
+                }, {
+                    label: 'هزینه',
+                    data: costData,
+                    borderColor: ['rgba(255,0,0)'],
+                    type: 'line',
+                    // this dataset is drawn on top
+                    order: 1
+                }],
+                // labels: ['January', 'February', 'March', 'April']
+                labels: lables
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+     }
+
+
+
+
     
     // bootstrap delet confirm code.
     // this method run if user click delete row in datagrid
