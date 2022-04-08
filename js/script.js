@@ -28,6 +28,27 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
 
 
 
+    // convert day field to 2digits if 1digit entered.
+    document.querySelector("#d-day").addEventListener('focusout', function (event) {
+        if (this.value.length == 1) this.value = '0' + this.value;
+    });
+
+    // convert day month to 2digits if 1digit entered.
+    document.querySelector("#d-month").addEventListener('focusout', function (event) {
+        if (this.value.length == 1) this.value = '0' + this.value;
+    });
+
+
+    // show error labale if year field lees than 4digists
+    document.querySelector("#d-year").addEventListener('focusout', function (event) {
+        if (this.value.length < 4) {
+            document.querySelector("#error_date").style.display = "inline-block";
+        }
+    });
+
+    
+
+
     // add comma to 3rd part digits function
     function addComma(Num) {
         Num += '';
