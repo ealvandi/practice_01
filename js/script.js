@@ -5,6 +5,78 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
 
 
 
+    // clear input elments method. 
+    // this method call when form should to be reset
+    function clearElements() {
+        document.querySelector("#income").checked = false;
+        document.querySelector("#cost").checked = false;
+        document.querySelector("#amount").value = '';
+        document.querySelector("#d-year").value = '';
+        document.querySelector("#d-month").value = '';
+        document.querySelector("#d-day").value = '';
+        document.querySelector("#describe").value = '';
+        document.querySelector("#tooman").style.display = "none";
+        document.querySelector("#Num2persian").innerHTML = '';
+    }
+
+        
+
+
+    // hide error elemets when recheck all of elements validation
+    function hideErrorElements() {
+        document.querySelectorAll('.element_erorr').forEach(function (el) {
+            el.style.display = 'none';
+        });
+
+    }
+
+
+
+
+
+    
+    // form validation function
+    // this fucntion when return true that data is valid
+    function validation() {
+
+        let valid = true;
+        hideErrorElements();
+
+        // income and cost radio button check
+        if (!document.querySelector("#income").checked && !document.querySelector("#cost").checked) {
+            document.querySelector("#error_type").style.display = "inline-block";
+            valid = false;
+        }
+
+        // amount text check
+        if (document.querySelector("#amount").value.length <= 0) {
+            document.querySelector("#error_amount").style.display = "block";
+            valid = false;
+        }
+
+        // date inputs check
+        if ((document.querySelector("#d-year").value.length < 4) || 
+            (document.querySelector("#d-month").value.length <= 0) ||  (document.querySelector("#d-month").value >12) ||  (document.querySelector("#d-month").value <1) ||
+            (document.querySelector("#d-day").value.length <= 0) || (document.querySelector("#d-day").value >31) || (document.querySelector("#d-day").value <1) 
+            ) {
+            document.querySelector("#error_date").style.display = "inline-block";
+            valid = false;
+        }
+
+        // amount text check
+        if (document.querySelector("#describe").value.length <= 0) {
+            document.querySelector("#error_describe").style.display = "inline-block";
+            valid = false;
+        }
+
+        return valid;
+    }
+
+
+
+
+
+
     // Apply data entry restrictions to numbers only for amount field
     document.querySelector("#amount").addEventListener('keydown', function (event) {
         justNumber(event);
