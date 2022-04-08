@@ -150,6 +150,29 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
 
 
 
+    
+    // define register button click event job
+    // this function call when register button clicked
+    
+    document.querySelector("#RegButton").addEventListener('click', function (event) {
+        if (validation()) {
+            var data = loadData();
+            var account = new Object();
+            account.id = Date.now();
+            account.type = document.querySelector("#income").checked ? 'درآمد' : 'هزینه';
+            account.amount = removeComma(document.querySelector("#amount").value);
+            account.date = document.querySelector("#d-year").value + '/' + document.querySelector("#d-month")
+                .value + '/' + document.querySelector("#d-day").value;
+            account.describe = document.querySelector("#describe").value;
+            data.push(account);
+            saveData(data);
+            showDataGrid();
+            clearElements();
+        }
+    });
+
+
+
 
 
 
