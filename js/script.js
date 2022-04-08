@@ -174,6 +174,35 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
 
 
 
+    // prepare data to draw chart
+    function doPeparDataToDrawChart()
+    {
+
+        let data = loadData();
+        let sotredRecords = data.sort(dynamicSort("date"));
+        let uniqueMonth= removeDuplicatesMonths(fetchMonths(sotredRecords));
+    
+
+        let incomeSummaryList = makeSummaryAmountList(sotredRecords, uniqueMonth, 'درآمد');      
+        // summry all incomes items in summary list for summary lable on the chart. with initial value to avoid when the array is empty
+        let incomeSummary =  incomeSummaryList.reduce(add, 0); 
+    
+        
+        let costSummaryList = makeSummaryAmountList(sotredRecords, uniqueMonth, 'هزینه');
+        // summry all costs items in summary list for summary lable on the chart. with initial value to avoid when the array is empty
+        let costSummary =  costSummaryList.reduce(add, 0); 
+
+        const analyzedData = {
+                               'uniqueMonth' : uniqueMonth , 'incomeSummaryList': incomeSummaryList , 'incomeSummary':incomeSummary ,
+                               'costSummaryList':costSummaryList  ,  'costSummary':costSummary
+                              };
+        return analyzedData;
+        
+    }
+
+
+
+
     // Preparation data to draw chart
     function drawChart() {
         const AnalyzedData = doPeparDataToDrawChart();
