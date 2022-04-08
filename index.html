@@ -8,13 +8,168 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.88.1">
-  <title>Album example · Bootstrap v5.1</title>
+  <title>practice-01 my personal accounting by javascript and bootstrap</title>
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
+
+  <link href="css/bootstrap5/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="css/font.css" rel="stylesheet"> <!-- load vazir font -->
 
 
 </head>
 
 <body dir="rtl">
+    <div class="container" style="width: 70% !important; height: 100% !important;">
+        <div class="row ">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+            <div style=" width: 100%; height: 150px;  " id="navi" class="box"> </div>
+          </div>
+    
+          <div class="col-xl-12 col-lg-12 col-md-12 col-12 px-4 mx-1">
+    
+            <!-- input filed box -->
+            <div class="row  justify-content-center mt-2 ">
+    
+              <div class="col-lg-6 col-md-6 box">
+                <div class="row text-center">
+                  <div class="col RadioBox">
+                    <input class="form-check-input" type="radio" name="ducumentType" id="income" value="bed">
+                    <label class="form-check-label" for="income"> درآمد </label>
+                  </div>
+    
+    
+                  <div class="col RadioBox rectangle">
+                    <input class="form-check-input" type="radio" name="ducumentType" id="cost" value="bes">
+                    <label class="form-check-label" for="cost"> هزینه </label>
+                  </div>
+    
+                  <label id="error_type" class="element_erorr"> نوع سند را انتخاب نمایید </label>
+                </div>
+    
+    
+                <div class="row ms-2 mt-2 ">
+                  <div class="col-12 col-sm-12 col-md-12  text-start">
+                    <label for="amount" class="form-lable mb-1">مبلغ:</label>
+    
+                    <input type="text" class="form-control" id="amount" name="amount">
+    
+                    <label for="amount" class="form-lable mb-1" style="color: rgb(43, 189, 6)" id="Num2persian"></label>
+                    <label for="amount" class="form-lable mb-1" style="display: none;" id="tooman"> تومان </label>
+                    <label id="error_amount" class="element_erorr"> مبلغ را وارد نمایید </label>
+                  </div>
+    
+                  <div class="col-12 col-sm-12 col-md-12 text-start">
+                    <label for="d-day" class="form-lable mb-1">تاریخ:</label>
+                    <div class="row">
+                      <div class="col-4"><input type="text" class="form-control" id="d-day" name="d-day" placeholder="روز" max="2">
+                      </div>
+                      <div class="col-4"><input type="text" class="form-control" id="d-month" name="d-month"
+                          placeholder="ماه">
+                      </div>
+                      <div class="col-4"><input type="text" class="form-control" id="d-year" name="d-year" max="4"
+                          placeholder="سال">
+                      </div>
+                    </div>
+                    <label id="error_date" class="element_erorr"> تاریخ را صحیح وارد نمایید </label>
+    
+                  </div>
+    
+    
+                  <div class="col-12 col-sm-12 col-md-12 text-start my-3">
+                    <label for="describe" class="form-lable mb-1">توضیحات:</label>
+                    <div class="row">
+                      <div class="col-12">
+                        <input type="text" class="form-control" id="describe" name="describe">
+                        <!-- <textarea class="form-control" id="describe" name="describe" style="resize: none;"></textarea>
+                        <textarea class="form-control" id="describe" name="describe" style="resize: none;"></textarea> -->
+                      </div>
+                    </div>
+                    <label id="error_describe" class="element_erorr"> توضیحات را وارد نمایید </label>
+    
+                  </div>
+    
+    
+                  <div class="col-12 col-sm-12 col-md-12 text-start">
+                    <div class="row">
+                      <div class="col-12">
+                        <button type="button" id="RegButton" class="btn btn-success form-control my-2">
+                          ثبت دخل و خرج
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+    
+    
+                </div>
+              </div>
+    
+    
+    
+              <div class="col-lg-6 col-md-6 box ">
+                <!-- chart box -->
+                <div class="row text-center  ">
+                  <div class="col my-1"> درآمد
+                    <label id="incomes" style="display: block; color:green;"> 0000 </label>
+                  </div>
+                  <div class="col my-1 "> مخارج
+                    <label id="costs" style="display: block; color: red;"> 0000 </label>
+                  </div>
+                </div>
+    
+                <div class="row ms-2 mt-2 ">
+                  <div class="col" id="chartContainer" >
+                    <canvas id="myChart"></canvas>
+                  </div>
+                </div>
+    
+              </div>
+    
+    
+            </div>
+          </div>
+    
+    
+    
+          <div class="col-xl-12 col-lg-12 col-md-12 col-12  px-5 mt-3 box">
+    
+            <!-- datagrid  -->
+            <div class="row" style="background-color: lightgray;">
+              <div class="col"> ردیف</div>
+              <div class="col"> مبلغ</div>
+              <div class="col"> تاریخ</div>
+              <div class="col"> نوع هزینه</div>
+              <div class="col"> توضیحات</div>
+            </div>
+            <div id="dataGrid">
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    
  
+    
+    <!-- bootstrap 5 Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">اطلاعات حذف شود؟</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+          </div>
+          <div class="modal-body" id="modal-body" data="">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+            <button type="button" id="confirm" class="btn btn-primary">تایید</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script src="js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
