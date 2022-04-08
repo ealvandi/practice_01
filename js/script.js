@@ -1,6 +1,6 @@
 var script = document.addEventListener('DOMContentLoaded', (e) => { // check if document ready by javascript
 
-
+    showDataGrid();
 
 
 
@@ -174,6 +174,14 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
 
 
 
+    // Preparation data to draw chart
+    function drawChart() {
+        const AnalyzedData = doPeparDataToDrawChart();
+        document.getElementById('incomes').innerHTML  = addComma(AnalyzedData.incomeSummary);
+        document.getElementById('costs').innerHTML  = addComma(AnalyzedData.costSummary);
+
+        lineChartSetup(AnalyzedData.uniqueMonth, AnalyzedData.incomeSummaryList , AnalyzedData.costSummaryList);
+    }
 
 
 
