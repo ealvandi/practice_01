@@ -174,6 +174,62 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
 
 
 
+    // asc sort records by date filed
+    function dynamicSort(property) {
+        var sortOrder = 1;
+        if (property[0] === "-") {
+            sortOrder = -1;
+            property = property.substr(1);
+        }
+        return function (a, b) {
+            /* next line works with strings and numbers, 
+             * and you may want to customize it to your needs
+             */
+            var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+            return result * sortOrder;
+        }
+    }
+
+
+
+    // load just month fields by (year + / + month) format to use in the chart.
+    function fetchMonths(data) {
+        var months = []
+        data.forEach(function (key, index, arr) {
+            months.push(arr[index].date.substring(0, 7)); // year + '/' + month
+        });
+        return months;
+    }
+
+   
+
+    // remove duplicates months filed from months lable list 
+    function removeDuplicatesMonths(arr) {
+        return arr.filter((item, index) => arr.indexOf(item) === index);
+    }
+
+
+
+    // make list of summary amount filed Based on Separation record type // درآمد and هزینه
+    function makeSummaryAmountList(data, months, type) {       
+        let summs = [];
+        for (let i=0; i < months.length; i++) { 
+             let sum =0;           
+             data.forEach(function (key, index, arr) { // search unique dates fields in all of dates and summary amount fileds
+                if (months[i] == data[index].date.substring(0, 7)  && (arr[index].type == type)) sum = sum + parseInt(data[index].amount);
+            });
+            summs.push(sum);
+         }
+         return summs;
+    }
+
+
+
+    function add(accumulator, a) {
+        return accumulator + a;
+      }
+
+
     // prepare data to draw chart
     function doPeparDataToDrawChart()
     {
