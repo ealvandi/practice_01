@@ -236,6 +236,17 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
 
  
 
+    
+    // bootstrap delet confirm code.
+    // this method run if user click delete row in datagrid
+    document.getElementById('confirm').addEventListener('click', function () {        
+        var myModal = document.getElementById('confirmModal');
+        var modal = bootstrap.Modal.getInstance(myModal);
+        deleteRecord(document.getElementById('modal-body').getAttribute("RecID"));
+        modal.hide();
+    });
+ 
+
 
 
 
