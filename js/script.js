@@ -138,6 +138,26 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
 
 
 
+    // load data from local storage function
+    function loadData() {
+        return JSON.parse(localStorage.getItem("data") || "[]");
+    }
+   
+    function saveData(data)
+    {
+        localStorage.setItem("data", JSON.stringify(data));
+    }
+
+
+
+
+
+
+
+
+
+
+
     // add comma to 3rd part digits function
     function addComma(Num) {
         Num += '';
