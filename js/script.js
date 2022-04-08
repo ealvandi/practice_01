@@ -46,7 +46,24 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
         }
     });
 
-    
+
+
+    // move cursor to month field if completed and correct day field entered.
+    document.querySelector("#d-day").addEventListener('keyup', function (event) {
+        if (this.value.length >= 2) document.querySelector("#d-month").focus();
+    });
+
+    // move cursor to year field if completed and correct month field entered.
+    document.querySelector("#d-month").addEventListener('keyup', function (event) {
+        if (this.value.length >= 2) document.getElementById("d-year").focus();
+    });
+
+
+    // move cursor to describe field if completed and correct year field entered.
+    document.querySelector("#d-year").addEventListener('keyup', function (event) {
+        if (this.value.length >= 4) document.getElementById("describe").focus();
+    });
+
 
 
     // add comma to 3rd part digits function
