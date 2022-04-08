@@ -31,6 +31,18 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
     }
 
 
+// convert number to farsi alphabet
+    document.querySelector("#amount").addEventListener('keyup', function (event) {
+        this.value = addComma(this.value); // splite 3Digit by add comma 
+        document.querySelector("#Num2persian").innerHTML = Num2persian(this.value); // convert amount number to farsi Letters
+
+        if (document.querySelector("#amount").value.length > 0) document.querySelector("#tooman").style // show  Letters "تومان" lable if amount entered
+            .display = "inline-block";
+        else {
+            document.querySelector("#tooman").style.display = "none";
+            document.querySelector("#Num2persian").innerHTML = '';
+        }
+    });
 
 
 
