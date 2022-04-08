@@ -247,6 +247,16 @@ var script = document.addEventListener('DOMContentLoaded', (e) => { // check if 
     });
  
 
+    
+    // delete a record from localstorage when call from delete modal
+    function deleteRecord(id) {
+        var data = loadData();
+        data = data.filter(data => data.id != id)
+        saveData(data);
+        showDataGrid();
+    }
+
+
 
 
 
